@@ -1,0 +1,146 @@
+# ---- define set(s) ----
+
+# a set of antigens
+set antigens := 
+DTaP
+Hib
+HepB
+IPV
+;
+
+# a set of bundles
+set bundles := 
+DTaP
+Hib
+HepB
+IPV
+DTaP-Hib
+Hib-HepB
+DTaP-HepB-IPV
+DTaP-IPV-Hib
+;
+
+# a set of time periods
+set periods := 1 2 3 4 5 6 7 8;
+
+# a set of firms
+set firms := 
+GlaxoSmithKline
+Merck
+SanofiPasteur
+;
+
+# ---- define parameter(s) ----
+
+# the number of doses of an antigen required in a period
+param dosage :=
+HepB 1 1
+HepB 2 0.5
+DTaP 3 1
+Hib 3 1
+HepB 3 0.5
+IPV 3 1
+DTaP 4 1
+Hib 4 1
+IPV 4 1
+DTaP 5 1
+Hib 5 1
+HepB 5 0.25
+IPV 5 0.25
+Hib 6 0.5
+HepB 6 0.25
+IPV 6 0.25
+DTaP 7 0.5
+Hib 7 0.5
+HepB 7 0.25
+IPV 7 0.25
+DTaP 8 0.5
+HepB 8 0.25
+IPV 8 0.25
+;
+
+# the preperation cost of a bundle (this differs according to the type of packaging used by a firm)
+param prep :=
+DTaP GlaxoSmithKline 0.25
+Hib GlaxoSmithKline 0.75
+HepB GlaxoSmithKline 0.25
+DTaP-HepB-IPV GlaxoSmithKline 0.25
+Hib Merck 0.75
+HepB Merck 0.75
+Hib-HepB Merck 0.75
+DTaP SanofiPasteur 0.75
+Hib SanofiPasteur 0.75
+IPV SanofiPasteur 0.25
+DTaP-Hib SanofiPasteur 0.75
+DTaP-IPV-Hib SanofiPasteur 0.75
+;
+
+# the cost to inject a vaccine
+param inject := 10;
+
+# a binary parameter indicating if an antigen is/isn't in a bundle (this maps antigens to bundles)
+param map := 
+DTaP DTaP 1
+Hib Hib 1
+HepB HepB 1
+IPV IPV 1
+Hib Hib-HepB 1
+HepB Hib-HepB 1
+DTaP DTaP-HepB-IPV 1
+HepB DTaP-HepB-IPV 1
+IPV DTaP-HepB-IPV 1
+DTaP DTaP-IPV-Hib 1
+Hib DTaP-IPV-Hib 1
+IPV DTaP-IPV-Hib 1
+DTaP DTaP-Hib 1
+Hib DTaP-Hib 1
+;
+
+# the marginal cost to produce a bundle (this differs according to the type of production system used by a firm)
+param MC :=
+DTaP GlaxoSmithKline 3.15
+Hib GlaxoSmithKline 1.45
+HepB GlaxoSmithKline 1.45
+DTaP-HepB-IPV GlaxoSmithKline 5.05
+Hib Merck 1.45
+HepB Merck 1.45
+Hib-HepB Merck 2.3
+DTaP SanofiPasteur 3.15
+Hib SanofiPasteur 1.45
+IPV SanofiPasteur 1.45
+DTaP-Hib SanofiPasteur 4
+DTaP-IPV-Hib SanofiPasteur 5.05
+;
+
+# the upper limit on the unit price for a bundle from a firm
+param limit :=
+DTaP GlaxoSmithKline 13.75
+Hib GlaxoSmithKline 8.66
+HepB GlaxoSmithKline 9.75
+DTaP-HepB-IPV GlaxoSmithKline 48.75
+Hib Merck 11.29
+HepB Merck 10
+Hib-HepB Merck 28.8
+DTaP SanofiPasteur 13.25
+Hib SanofiPasteur 8.66
+IPV SanofiPasteur 11.51
+DTaP-Hib SanofiPasteur 27.31
+DTaP-IPV-Hib SanofiPasteur 51.49
+;
+
+# a binary parameter indicating if a firm does/doesn't supply a bundle
+param supply :=
+DTaP GlaxoSmithKline 1
+Hib GlaxoSmithKline 1
+HepB GlaxoSmithKline 1
+DTaP-HepB-IPV GlaxoSmithKline 1
+Hib Merck 1
+HepB Merck 1
+Hib-HepB Merck 1
+DTaP SanofiPasteur 1
+Hib SanofiPasteur 1
+IPV SanofiPasteur 1
+DTaP-Hib SanofiPasteur 1
+DTaP-IPV-Hib SanofiPasteur 1
+;
+

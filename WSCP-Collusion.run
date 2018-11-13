@@ -1,0 +1,22 @@
+##############
+#### if you're using NEOS then keep the following 4 lines of code commented out
+#### if you're solving this problem with an ampl license on your machine then uncomment these 4 lines of code
+##############
+
+# reset;  # clear the work space
+# model WSCP-Collusion.mod;  # load the model file
+# data WSCP-Collusion.dat;  # load the data file
+# option solver knitro;  # choose a solver
+
+option knitro_options 'ms_enable=1 ma_terminate=0 mip_integral_gap_rel=1e-5';  # in the order it appears (comma seperated): enable multi start, let the solver decide how many multiple start points to use based on problem size, pick the precision (significant figures) for which a number (any integer variable you want to solve for) is considered an integer
+option display_eps 1.0e-09;  # machine precision on all variables (ie. the smallest magnitude in the decimal place for which a number is considered different from zero)
+option solution_round 6;  # round the displayed variable values to a certain number of decimal places
+solve;  # solve the model instance
+option omit_zero_rows 1;  # if a variable took a value of zero then dont display it
+option display_1col 1000;  # force the display to be in long format
+display sum{j in bundles, t in periods, f in firms}((price[j,t,f] + prep[j,f] + inject) * quantity[j,t,f]);  # display the value of the objective function
+display price, quantity;  # display the values of the variables of interest
+
+
+
+
